@@ -39,6 +39,44 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+# Assignment Details
+
+## Dashboard:
+
+* Display a summary of key metrics or features (e.g., total number of products, and orders).
+* Include links or buttons for quick navigation to the Products and Orders management pages.
+
+
+![dashboard](https://github.com/Techyrushi/ERP_System/assets/122292947/5b9fc8fc-b988-4b3f-afa0-8be23b4db80b)
+
+## Products Management:
+
+* Present a list of products with details such as name, category, price, and stock quantity, using mock data.
+* Enable functionalities to add, edit, and delete products.
+
+
+![products](https://github.com/Techyrushi/ERP_System/assets/122292947/2f47c43c-2089-4e0e-8e6f-6e7825d217bd)
+
+![add](https://github.com/Techyrushi/ERP_System/assets/122292947/9b7fc0c9-b486-4d8a-a59c-c361efb268cd)
+
+## Orders Management:
+* Show a list of orders, including details like order ID, customer name, order date, and status, using mock data.
+* (Optional) Allow viewing of order details, updating the order status, and deletion of orders.
+
+![orders](https://github.com/Techyrushi/ERP_System/assets/122292947/f9e89a69-0d03-43e9-8538-94ac25bb2ed7)
+
+## Orders Calendar View (Optional):
+
+* Implement a calendar view that displays orders on their expected delivery dates.
+* Provide the ability to click on a date to view all orders due for delivery that day.
+
+![calendar](https://github.com/Techyrushi/ERP_System/assets/122292947/928d5303-cc51-4ddc-a002-2202594d5b1d)
+
+## Deployment Link
+
+You can view the website - [Simplified ERP System with React](https://erp-system-3cej.vercel.app/).
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
