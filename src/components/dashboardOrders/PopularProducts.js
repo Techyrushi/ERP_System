@@ -4,7 +4,7 @@ import { popularProducts } from "../lib/constants/config";
 
 const PopularProducts = () => {
   return (
-    <div className="w-[20rem] bg-white p-4 mr-4 rounded-sm border border-gray-200 h-[17rem] overflow-y-scroll">
+    <div className="w-[20rem] bg-white p-4 mr-4 rounded-sm border border-gray-200 h-[25rem] overflow-y-scroll">
       <strong className="text-gray-700 font-medium">Popular Products</strong>
       <div className="mt-4 flex flex-col gap-3">
         {popularProducts.map((product) => (

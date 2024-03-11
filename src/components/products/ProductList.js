@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IoIosAdd } from "react-icons/io";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 const ProductTable = ({ products: initialProducts }) => {
@@ -27,7 +26,18 @@ const ProductTable = ({ products: initialProducts }) => {
   };
 
   const handleSaveClick = () => {
-    setProducts([{ ...newProduct, id: Date.now() }, ...products]);
+    if (newProduct.id) {
+      // If newProduct has an id, it means we are editing an existing product
+      const updatedProducts = products.map((product) =>
+        product.id === newProduct.id ? newProduct : product
+      );
+      setProducts(updatedProducts);
+    } else {
+      // If newProduct doesn't have an id, it means we are adding a new product
+      setProducts([{ ...newProduct, id: Date.now() }, ...products]);
+    }
+
+    // Reset the form and hide it
     setNewProduct({
       id: null,
       name: "",
@@ -73,75 +83,90 @@ const ProductTable = ({ products: initialProducts }) => {
         onClick={handleAddClick}
         className="bg-green-500 text-white py-2 px-4 rounded-md mb-4"
       >
-        <IoIosAdd /> Add Product
+        Add Product
       </button>
 
-       {/* Add Form */}
-       {isAddFormVisible && (
-  <div className="bg-white p-4 mb-4 rounded-md">
-    <label className="block text-gray-700 text-sm font-bold mb-2">
-      Product Name:
-    </label>
-    <input
-      type="text"
-      value={newProduct.name}
-      onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-      className="border rounded w-full py-2 px-3 mb-2"
-    />
+      {/* Modal for Add Form */}
+      {isAddFormVisible && (
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
 
-    <label className="block text-gray-700 text-sm font-bold mb-2">
-      Product Category:
-    </label>
-    <input
-      type="text"
-      value={newProduct.category}
-      onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-      className="border rounded w-full py-2 px-3 mb-2"
-    />
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
 
-    <label className="block text-gray-700 text-sm font-bold mb-2">
-      Product Price:
-    </label>
-    <input
-      type="number"
-      value={newProduct.price}
-      onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
-      className="border rounded w-full py-2 px-3 mb-2"
-    />
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="bg-white p-4 mb-4 rounded-md">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Product Name:
+                </label>
+                <input
+                  type="text"
+                  value={newProduct.name}
+                  onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                  className="border rounded w-full py-2 px-3 mb-2"
+                />
 
-    <label className="block text-gray-700 text-sm font-bold mb-2">
-      Stock Quantity:
-    </label>
-    <input
-      type="number"
-      value={newProduct.stockQuantity}
-      onChange={(e) => setNewProduct({ ...newProduct, stockQuantity: parseInt(e.target.value) })}
-      className="border rounded w-full py-2 px-3 mb-2"
-    />
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Product Category:
+                </label>
+                <input
+                  type="text"
+                  value={newProduct.category}
+                  onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                  className="border rounded w-full py-2 px-3 mb-2"
+                />
 
-    <label className="block text-gray-700 text-sm font-bold mb-2">
-      Description:
-    </label>
-    <textarea
-      value={newProduct.description}
-      onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-      className="border rounded w-full py-2 px-3 mb-2"
-    />
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Product Price:
+                </label>
+                <input
+                  type="number"
+                  value={newProduct.price}
+                  onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
+                  className="border rounded w-full py-2 px-3 mb-2"
+                />
 
-    <button
-      onClick={handleSaveClick}
-      className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2"
-    >
-      Save
-    </button>
-    <button
-      onClick={handleCancelClick}
-      className="bg-gray-500 text-white py-2 px-4 rounded-md"
-    >
-      Cancel
-    </button>
-  </div>
-)}
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Stock Quantity:
+                </label>
+                <input
+                  type="number"
+                  value={newProduct.stockQuantity}
+                  onChange={(e) => setNewProduct({ ...newProduct, stockQuantity: parseInt(e.target.value) })}
+                  className="border rounded w-full py-2 px-3 mb-2"
+                />
+
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Description:
+                </label>
+                <textarea
+                  value={newProduct.description}
+                  onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                  className="border rounded w-full py-2 px-3 mb-2"
+                />
+
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={handleCancelClick}
+                  className="bg-gray-500 text-white py-2 px-4 rounded-md"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Product Table */}
       <table className="w-full table-auto border-collapse overflow-y-scroll">
         {/* Table Header */}

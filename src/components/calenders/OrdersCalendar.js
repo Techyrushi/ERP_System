@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { ORDERS_DATA } from '../lib/constants/config';
+import './index.css'; // Import your stylesheet
 
 const STATUS_COLORS = {
   placed: 'bg-blue-400',
@@ -26,54 +27,55 @@ const OrdersCalendar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center"><br/>
-      <h2 className="text-3xl font-semibold mb-4">Orders Calendar View</h2>
-      <div className="bg-white p-6 rounded-md shadow-md mb-4">
+    <div className="container mx-auto p-4">
+      <h2 className="text-3xl font-semibold mb-4 text-center">Orders Calendar View</h2>
+      <div className="relative">
+        <div className="glass-effect absolute inset-0 opacity-75 bg-white rounded-md animate-fadeIn"></div>
         <Calendar
           onChange={handleCalendarChange}
           value={selectedDate}
-          className="custom-calendar-style" // Add your custom styling class
+          className="custom-calendar-style w-full text-center relative z-10"
         />
       </div>
       <div>
-        <h3 className="text-xl font-semibold mb-2">
+        <h3 className="text-xl font-semibold mb-2 text-center">
           Orders due for delivery on {selectedDate.toDateString()}:
         </h3>
         {selectedOrders.length > 0 ? (
-          <table className="min-w-full table-auto border-collapse bg-white p-6 rounded-md shadow-md">
-            <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">ID</th>
-                <th className="py-3 px-6 text-left">Product ID</th>
-                <th className="py-3 px-6 text-left">Customer Name</th>
-                <th className="py-3 px-6 text-left">Order Date</th>
-                <th className="py-3 px-6 text-left">Order Total</th>
-                <th className="py-3 px-6 text-left">Shipping Address</th>
-                <th className="py-3 px-6 text-left">Order Status</th>
-                {/* Add other columns based on your order structure */}
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {selectedOrders.map((order) => (
-                <tr key={order.id} className="border-b border-gray-200">
-                  <td className="py-3 px-6 text-left">{order.id}</td>
-                  <td className="py-3 px-6 text-left">{order.productId}</td>
-                  <td className="py-3 px-6 text-left">{order.customerName}</td>
-                  <td className="py-3 px-6 text-left">{order.orderDate}</td>
-                  <td className="py-3 px-6 text-left">{order.orderTotal}</td>
-                  <td className="py-3 px-6 text-left">{order.shippingAddress}</td>
-                  <td className="py-3 px-6 text-left">
-                    <span className={`inline-block py-1 px-3 rounded-full ${STATUS_COLORS[order.orderStatus]} text-white`}>
-                      {order.orderStatus}
-                    </span>
-                  </td>
-                  {/* Add other columns based on your order structure */}
+          <div className="overflow-x-auto">
+            <table className="min-w-full table-auto border-collapse bg-white p-4 rounded-md shadow-md">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">ID</th>
+                  <th className="py-3 px-6 text-left">Product ID</th>
+                  <th className="py-3 px-6 text-left">Customer Name</th>
+                  <th className="py-3 px-6 text-left">Order Date</th>
+                  <th className="py-3 px-6 text-left">Order Total</th>
+                  <th className="py-3 px-6 text-left">Shipping Address</th>
+                  <th className="py-3 px-6 text-left">Order Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {selectedOrders.map((order) => (
+                  <tr key={order.id} className="border-b border-gray-200">
+                    <td className="py-3 px-6 text-left">{order.id}</td>
+                    <td className="py-3 px-6 text-left">{order.productId}</td>
+                    <td className="py-3 px-6 text-left">{order.customerName}</td>
+                    <td className="py-3 px-6 text-left">{order.orderDate}</td>
+                    <td className="py-3 px-6 text-left">{order.orderTotal}</td>
+                    <td className="py-3 px-6 text-left">{order.shippingAddress}</td>
+                    <td className="py-3 px-6 text-left">
+                      <span className={`inline-block py-1 px-3 rounded-full ${STATUS_COLORS[order.orderStatus]} text-white`}>
+                        {order.orderStatus}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
-          <p>No orders due for delivery on {selectedDate.toDateString()}.</p>
+          <p className="text-center">No orders due for delivery on {selectedDate.toDateString()}.</p>
         )}
       </div>
     </div>
